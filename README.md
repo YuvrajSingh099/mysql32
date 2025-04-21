@@ -152,21 +152,82 @@ mkdir public
 sudo nano /etc/exports 
 //
 (add the public and private lines)
-/public *9ro,sync
+/public *(ro,sync,no_subtree_check)
+/private 172.23.1.6/21(rw, sync,no_subtreee_check)
 
 sudo exportfs -arvf
+
+sudo systemctl start nfs-kernel-server
+sudo systemctl enable nfs-kernel-server
+sudo systemctl status nfs-kernel-server
+sudo apt-get install nfs-common
+
+showmount -e <ip>
+
+sudo mkdir /mnt/public
+sudo mkdir /mnt/private
+
+sudo mount -t nfs 172.23.1.6:/public /mnt/public
+sudo mount -t nfs 172.23.1.6:/private /mnt/private
+mount | grep 'public'
+
+
 
 P7
 sudo apt-get install mysql-server-*
 sudo mysql
+// create database and insert values
+
+P8
+sudo apt-get install phpmyadmin
+
+sudo systemctl restart apache2
+sudu systemctl status apache 2
+
+P9 NTP
+
+date 
+sudo timedatectl set-time "2026-05-17"
+
+sudo apt-get install ntp
+
+sudo ufd allow out 123/udp
+
+sudo gedit/etc/ntp.conf
+
+sudo systemctl restart ntp
+
+sudo systemctl status ntp
 
 
+P10(File compress)
 
+ls
+gzip emp.txt
+cat emp.txt.gz
+gunzip emp.txt.gz
+ls e*.*
+gzip prac
+gzip -r prac
+ls prac
 
+bzip2
 
+bzip2 emp.txt
+ls e*.*
+bunzip2 emp.txt.bz2
+ls e*.*
 
+tar
+tar -cvf prac.tar prac
+prac/
+prac/ex1.txt
+prac/ex2.txt
 
+ls -l prac.tar
+tar -tvf prac.tar
 
+Menu driver
 
 
 
