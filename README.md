@@ -229,20 +229,31 @@ tar -tvf prac.tar
 
 Menu driver
 
+1. Write a menu driven shell script to create a file, accept file name from the user 2. Display the content of any file, accept file name from the user 3. Create the copy of a file, accept the name of the file of which the copy should be created and accept file name to be given after copying of the file. 4. Rename a file, accept the file name of which you want to change the name, accept file name from user. 5. Delete a file, accept file name from the user for which file name is to be deleted. Run this loop until user wishes to stop.
+
+
+Shell script:
+
+#/bin/bash 
+while true 
+do 
+echo "Menu:" GNOOOHm 
+echo "1. Create a file" 
+echo "2. Display the contents of the file" 
+echo "3. Create a copy of a file" echo "4. Rename a file" 
+echo "5. Delete a file" 
+read -p "Enter choice:" choice 
+case $choice in 
+1) read -p "Enter filename:" filename; touch $filename;; A
+2) 2) read -p "Enter filename:" filename; cat $filename;; 5 
+3) read -p "Enter current filename:" oldfile; read -p "Enter new filename" newfile; cp $oldfile $newfile;;
+4) read -p "Enter current filename:" oldfile; read -p "Enter new filename" newfile; mv $oldfile $newfile;; 
+5) read -p "Enter filename:"; rm $filename;; *)
+echo "Invalid Input";;
+esac read -p "Do you want to continue(y/n): " rero [$rero != "y" ] && break
+done 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-P9
 
 
