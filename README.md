@@ -254,6 +254,102 @@ esac read -p "Do you want to continue(y/n): " rero [$rero != "y" ] && break
 done 
 
 
+p11 dns
+hostnamectl
+> hostnamectl set-hostname server.example.com
+
+> ifconfig -s
+
+> sudo ifconfig ens33 down
+> sudo ifconfig ens33 up
+
+> sudo apt-get update
+> sudo apt-get install bind9 bind9utils
+
+> cd /etc/bind
+> ls *.conf
+
+> sudo gedit named.conf.local 
+
+zone "example.com" IN {
+type master;
+file "/etc/bind/forward.example.com";
+};
+
+zone "43.168.192.in-addr.arpa" IN {
+type master;
+file "/etc/bind/reverse.example.com";
+};
+
+
+> sudo cp db.local forward.example.com
+
+
+> sudo gedit /etc/bind/forward.example.com
+@	IN	NS	server.example.com.
+@	IN	A	192.168.202.128
+server	IN	A	192.168.202.128
+host	IN	A	192.168.202.128
+client	IN	A	192.168.202.129
+www	IN	A	192.168.202.129
+
+
+> sudo cp forward.example.com reverse.example.com
+
+> sudo gedit /etc/bind/reverse.example.com
+@	IN	NS	server.example.com.
+@	IN	A	192.168.202.128
+server	IN	A	192.168.202.128
+host	IN	A	192.168.202.128
+client	IN	A	192.168.202.129
+www	IN	A	192.168.202.129
+128	IN	PTR	server.example.com.
+129	IN	PTR	client.example.com.
+
+
+> sudo named-checkconf -z /etc/bind/named.conf
+> sudo named-checkconf -z /etc/bind/named.conf.local
+
+
+
+> sudo named-checkzone forward /etc/bind/forward.example.com
+> sudo named-checkzone reverse /etc/bind/reverse.example.com
+
+
+
+> sudo systemctl start bind9
+> sudo systemctl status bind9
+
+> sudo chmod -R 755 /etc/bind
+
+
+> sudo systemctl restart bind9
+> sudo systemctl status bind9
+
+
+> sudo gedit /etc/network/interfaces
+auto lo
+iface lo iname loopback
+auto enp0s8
+iface enp0s8 iname static
+address 192.168.152.128
+netmask 255.255.255.0
+dns-search example.com
+dns-nameserver 192.168.152.128
+
+> sudo gedit /etc/resolv.conf
+nameserver 192.168.202.128
+search example.com
+
+> sudo ufw status
+
+> ping server
+> ping host
+
+
+> nslookup server
+> nslookup host
+> nslookup www.google.com
 
 
 
